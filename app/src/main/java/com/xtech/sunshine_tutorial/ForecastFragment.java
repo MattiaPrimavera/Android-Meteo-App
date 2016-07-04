@@ -2,7 +2,6 @@ package com.xtech.sunshine_tutorial;
 
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,12 +10,9 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A placeholder fragment containing a simple view.
- */
-public class MainActivityFragment extends Fragment {
+public class ForecastFragment extends Fragment {
 
-    public MainActivityFragment() {
+    public ForecastFragment() {
     }
 
     @Override
@@ -52,3 +48,4 @@ public class MainActivityFragment extends Fragment {
         return rootView;
     }
 }
+
