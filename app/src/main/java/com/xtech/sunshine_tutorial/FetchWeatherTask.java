@@ -1,8 +1,11 @@
 package com.xtech.sunshine_tutorial;
 
-import com.xtech.sunshine_tutorial.ApiKey;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
+
+import org.json.JSONException;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,11 +13,20 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class FetchWeatherTask extends AsyncTask {
+public class FetchWeatherTask extends AsyncTask<String, Void, Void> {
 
     @Override
-    protected Object doInBackground(Object[] params) {
+    protected Void doInBackground(String... params) {
         final String LOG_TAG = FetchWeatherTask.class.getSimpleName();
+
+        // If there's no zip code, there's nothing to look up.  Verify size of params.
+        if (params.length == 0) {
+            return null;
+        }
+
+        String format = "json";
+        String units = "metric";
+        int numDays = 7;
 
         // These two need to be declared outside the try/catch
         // so that they can be closed in the finally block.
@@ -28,8 +40,24 @@ public class FetchWeatherTask extends AsyncTask {
             // Construct the URL for the OpenWeatherMap query
             // Possible parameters are avaiable at OWM's forecast API page, at
             // http://openweathermap.org/API#forecast
-            String requestUrl = "http://api.openweathermap.org/data/2.5/forecast/daily?q=Paris&mode=json&units=metric&cnt=7&appid=" + ApiKey.getAppId();
-            URL url = new URL(requestUrl);
+            final String FORECAST_BASE_URL = "http://api.openweathermap.org/data/2.5/forecast/daily?";
+            final String QUERY_PARAM = "q"; // Postal Code
+            final String FORMAT_PARAM = "mode";
+            final String UNITS_PARAM = "units";
+            final String DAYS_PARAM = "cnt";
+            final String APPID_PARAM = "APPID";
+
+            Uri builtUri = Uri.parse(FORECAST_BASE_URL).buildUpon()
+                    .appendQueryParameter(QUERY_PARAM, params[0])
+                    .appendQueryParameter(FORMAT_PARAM, format)
+                    .appendQueryParameter(UNITS_PARAM, units)
+                    .appendQueryParameter(DAYS_PARAM, Integer.toString(numDays))
+                    .appendQueryParameter(APPID_PARAM, ApiKey.getAppId())
+                    .build();
+
+            URL url = new URL(builtUri.toString());
+
+            Log.v(LOG_TAG, "Built URI " + builtUri.toString());
 
             // Create the request to OpenWeatherMap, and open the connection
             urlConnection = (HttpURLConnection) url.openConnection();
@@ -58,6 +86,13 @@ public class FetchWeatherTask extends AsyncTask {
                 return null;
             }
             forecastJsonStr = buffer.toString();
+            Log.d(LOG_TAG, forecastJsonStr);
+
+            try {
+                Log.d("FINAL DATA PARSED: ", WeatherDataParser.jsonToForecastArrayList(forecastJsonStr).get(0));
+            }catch(JSONException e){
+                Log.d("PARSING:", "error parsing json returned from server");
+            }
         } catch (IOException e) {
             Log.e(LOG_TAG, "Error ", e);
             // If the code didn't successfully get the weather data, there's no point in attemping
