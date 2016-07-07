@@ -10,5 +10,9 @@
     tools:context="com.xtech.sunshine_tutorial.DetailActivityFragment"
     tools:showIn="@layout/activity_detail">
 
-
+    <TextView
+        android:id="@+id/detail_text"
+        android:text="Hello World"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 </RelativeLayout>
