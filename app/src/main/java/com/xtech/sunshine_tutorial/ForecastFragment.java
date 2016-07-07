@@ -1,5 +1,6 @@
 package com.xtech.sunshine_tutorial;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -54,7 +55,11 @@ public class ForecastFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getActivity(), (String) parent.getAdapter().getItem(position), Toast.LENGTH_SHORT).show();
+                String forecast = (String) parent.getItemAtPosition(position);
+                // Starting detail Activity passing forecast as EXTRA data
+                Intent intent = ((Intent) new Intent(getActivity(), DetailActivity.class)).
+                        putExtra(Intent.EXTRA_TEXT, forecast);
+                startActivity(intent);
             }
         });
 
