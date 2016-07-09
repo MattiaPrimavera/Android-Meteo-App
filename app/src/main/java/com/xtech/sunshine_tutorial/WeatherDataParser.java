@@ -1,12 +1,8 @@
 package com.xtech.sunshine_tutorial;
 
-import android.text.format.Time;
-import android.util.Log;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -15,9 +11,8 @@ import java.util.TimeZone;
 
 public class WeatherDataParser {
     /**
-     * Given a string of the form returned by the api call:
+     * Return Weather information as an Array of Strings using the API
      * http://api.openweathermap.org/data/2.5/forecast/daily?q=94043&mode=json&units=metric&cnt=7
-     * retrieve the maximum temperature for the day indicated by dayIndex
      * (Note: 0-indexed, so 0 would refer to the first day).
      */
     public static ArrayList<String> jsonToForecastArrayList(String weatherJsonStr)

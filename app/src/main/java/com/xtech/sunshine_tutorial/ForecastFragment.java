@@ -12,13 +12,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class ForecastFragment extends Fragment {
-
+    private ArrayAdapter<String> adapter;
     public ForecastFragment() {
     }
 
@@ -43,7 +41,7 @@ public class ForecastFragment extends Fragment {
             weekForecast.add(e);
         }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+        this.adapter = new ArrayAdapter<String>(
                 getActivity(), //Current Context -> This fragment parent activity
                 R.layout.list_item_forecast, //List item layout
                 R.id.list_item_forecast_textview, //Text View to Populate
@@ -82,7 +80,7 @@ public class ForecastFragment extends Fragment {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_refresh) {
-            FetchWeatherTask task = new FetchWeatherTask();
+            FetchWeatherTask task = new FetchWeatherTask(this.adapter);
             task.execute();
             return true;
         }

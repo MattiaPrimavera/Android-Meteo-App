@@ -3,20 +3,41 @@ package com.xtech.sunshine_tutorial;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
-
+import android.widget.ArrayAdapter;
 import org.json.JSONException;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 
-public class FetchWeatherTask extends AsyncTask<String, Void, Void> {
+public class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
+    private ArrayAdapter<String> adapter;
+
+    public FetchWeatherTask(ArrayAdapter<String> adapter){
+        this.adapter = adapter;
+    }
 
     @Override
-    protected Void doInBackground(String... params) {
+    protected void onPostExecute(String[] result) {
+        //Apdating the list adapter
+        if(result != null){
+            this.adapter.clear();
+            for(String str : result){
+                this.adapter.add(str);
+            }
+        }
+    }
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+    }
+
+    @Override
+    protected String[] doInBackground(String... params) {
         final String LOG_TAG = FetchWeatherTask.class.getSimpleName();
 
         // If there's no zip code, there's nothing to look up.  Verify size of params.
@@ -87,6 +108,13 @@ public class FetchWeatherTask extends AsyncTask<String, Void, Void> {
             }
             forecastJsonStr = buffer.toString();
             Log.d(LOG_TAG, forecastJsonStr);
+
+            try{
+                ArrayList<String> forecastArray = WeatherDataParser.jsonToForecastArrayList(forecastJsonStr);
+                String[] result = new String[forecastArray.size()];
+                result = forecastArray.toArray(result);
+                return result;
+            }catch(JSONException e){ e.printStackTrace(); }
 
             try {
                 Log.d("FINAL DATA PARSED: ", WeatherDataParser.jsonToForecastArrayList(forecastJsonStr).get(0));
