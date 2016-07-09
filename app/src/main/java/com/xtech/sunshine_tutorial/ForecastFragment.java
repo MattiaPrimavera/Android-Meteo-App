@@ -20,9 +20,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class ForecastFragment extends Fragment {
     private ArrayAdapter<String> adapter;
     public ForecastFragment() {
@@ -34,28 +31,7 @@ public class ForecastFragment extends Fragment {
         setHasOptionsMenu(true);
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
-        String[] forecastArray = {
-                "Today - Sunny - 35°",
-                "Tomorrow - Foggy - 20°",
-                "Weds - Cloudy - 15°",
-                "Thurs - Asteroids - 65°",
-                "Fri - Heavy rain - 20°",
-                "Sat - Storm - 10°",
-                "Sun - Sunny - 40°"
-        };
-
-        List<String> weekForecast = new ArrayList<String>();
-        for(String e : forecastArray){
-            weekForecast.add(e);
-        }
-
-        this.adapter = new ArrayAdapter<String>(
-                getActivity(), //Current Context -> This fragment parent activity
-                R.layout.list_item_forecast, //List item layout
-                R.id.list_item_forecast_textview, //Text View to Populate
-                weekForecast); //Forecast data
-
-
+        this.adapter = new ArrayAdapter<String>(getActivity(), R.layout.list_item_forecast, R.id.list_item_forecast_textview);
         ListView listView = (ListView) rootView.findViewById(R.id.listview_forecast);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
@@ -88,23 +64,32 @@ public class ForecastFragment extends Fragment {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_refresh) {
-            FetchWeatherTask task = new FetchWeatherTask(this.adapter);
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-            String location = prefs.getString(getString(R.string.pref_location_key), getString(R.string.pref_location_default));
-
-            ConnectivityManager connectivityManager = (ConnectivityManager) (getActivity().getSystemService(Context.CONNECTIVITY_SERVICE));
-            NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-            if(activeNetworkInfo != null && activeNetworkInfo.isConnected()) {
-                task.execute(location);
-                return true;
-            }
-            else {
-                Toast.makeText(getActivity(), "No Internet Connection Avaiable", Toast.LENGTH_SHORT).show();
-                Log.d("Network ERROR: ", "Error Network connection not avaiable");
-            }
+            updateWeather();
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void updateWeather(){
+        FetchWeatherTask task = new FetchWeatherTask(this.adapter);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        String location = prefs.getString(getString(R.string.pref_location_key), getString(R.string.pref_location_default));
+
+        ConnectivityManager connectivityManager = (ConnectivityManager) (getActivity().getSystemService(Context.CONNECTIVITY_SERVICE));
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        if(activeNetworkInfo != null && activeNetworkInfo.isConnected()) {
+            task.execute(location);
+        }
+        else {
+            Toast.makeText(getActivity(), "No Internet Connection Avaiable", Toast.LENGTH_SHORT).show();
+            Log.d("Network ERROR: ", "Error Network connection not avaiable");
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        updateWeather();
     }
 }
 
