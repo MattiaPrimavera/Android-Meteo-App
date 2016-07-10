@@ -11,14 +11,14 @@ import java.util.TimeZone;
 
 public class WeatherDataParser {
     /**
-     * Return Weather information as an Array of Strings using the API
+     * Return Weather information as an Array of Forecast Objects using the API
      * http://api.openweathermap.org/data/2.5/forecast/daily?q=94043&mode=json&units=metric&cnt=7
      * (Note: 0-indexed, so 0 would refer to the first day).
      */
-    public static ArrayList<String> jsonToForecastArrayList(String weatherJsonStr)
+    public static ArrayList<Forecast> jsonToForecastArrayList(String weatherJsonStr)
             throws JSONException {
 
-        ArrayList<String> forecastList = new ArrayList<String>();
+        ArrayList<Forecast> forecastList = new ArrayList<Forecast>();
         JSONObject reader = new JSONObject(weatherJsonStr);
         JSONArray list = reader.getJSONArray("list");
         for (int i = 0; i < list.length(); i++) {
@@ -30,9 +30,10 @@ public class WeatherDataParser {
 
             JSONArray weather = dayInfos.getJSONArray("weather");
             String main = weather.getJSONObject(0).getString("main");
+            String iconName = weather.getJSONObject(0).getString("icon");
 
             String day = WeatherDataParser.getCurrentDate();
-            forecastList.add(new Forecast(day, main, max).toString());
+            forecastList.add(new Forecast(day, main, max, iconName));
         }
 
         return forecastList;

@@ -10,9 +10,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import java.net.URI;
-import java.net.URL;
-
 public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,14 +37,12 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             startActivity(new Intent(this, SettingsActivity.class));
             return true;
-        }
-        if (id == R.id.action_map_preferred_location) {
+        }else if (id == R.id.action_map_preferred_location) {
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
             String location = prefs.getString(getString(R.string.pref_location_key), getString(R.string.pref_location_default));
             this.showMap(location);
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 

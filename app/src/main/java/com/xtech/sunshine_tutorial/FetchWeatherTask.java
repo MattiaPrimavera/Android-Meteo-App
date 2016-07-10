@@ -3,7 +3,6 @@ package com.xtech.sunshine_tutorial;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.ArrayAdapter;
 import org.json.JSONException;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,20 +12,20 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
-    private ArrayAdapter<String> adapter;
+public class FetchWeatherTask extends AsyncTask<String, Void, ArrayList<Forecast>> {
+    private CustomWeatherAdapter adapter;
 
-    public FetchWeatherTask(ArrayAdapter<String> adapter){
+    public FetchWeatherTask(CustomWeatherAdapter adapter){
         this.adapter = adapter;
     }
 
     @Override
-    protected void onPostExecute(String[] result) {
+    protected void onPostExecute(ArrayList<Forecast> result) {
         //Apdating the list adapter
         if(result != null){
             this.adapter.clear();
-            for(String str : result){
-                this.adapter.add(str);
+            for(Forecast f : result){
+                this.adapter.add(f);
             }
         }
     }
@@ -37,7 +36,7 @@ public class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
     }
 
     @Override
-    protected String[] doInBackground(String... params) {
+    protected ArrayList<Forecast> doInBackground(String... params) {
         final String LOG_TAG = FetchWeatherTask.class.getSimpleName();
 
         // If there's no zip code, there's nothing to look up.  Verify size of params.
@@ -110,14 +109,12 @@ public class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
             Log.d(LOG_TAG, forecastJsonStr);
 
             try{
-                ArrayList<String> forecastArray = WeatherDataParser.jsonToForecastArrayList(forecastJsonStr);
-                String[] result = new String[forecastArray.size()];
-                result = forecastArray.toArray(result);
-                return result;
+                ArrayList<Forecast> forecastArray = WeatherDataParser.jsonToForecastArrayList(forecastJsonStr);
+                return forecastArray;
             }catch(JSONException e){ e.printStackTrace(); }
 
             try {
-                Log.d("FINAL DATA PARSED: ", WeatherDataParser.jsonToForecastArrayList(forecastJsonStr).get(0));
+                Log.d("FINAL DATA PARSED: ", WeatherDataParser.jsonToForecastArrayList(forecastJsonStr).get(0).toString());
             }catch(JSONException e){
                 Log.d("PARSING:", "error parsing json returned from server");
             }

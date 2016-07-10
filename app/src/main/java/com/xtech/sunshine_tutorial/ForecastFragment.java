@@ -16,12 +16,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class ForecastFragment extends Fragment {
-    private ArrayAdapter<String> adapter;
+    private CustomWeatherAdapter adapter;
     public ForecastFragment() {
     }
 
@@ -30,21 +31,23 @@ public class ForecastFragment extends Fragment {
             Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-
-        this.adapter = new ArrayAdapter<String>(getActivity(), R.layout.list_item_forecast, R.id.list_item_forecast_textview);
+        Log.d("getView: ", "getView building CustomwEatherAdapter");
+        ArrayList<Forecast> weekForecast = new ArrayList<Forecast>();
+        this.adapter = new CustomWeatherAdapter(getActivity(), weekForecast);
+        //this.adapter = new ArrayAdapter<String>(getActivity(), R.layout.list_item_forecast, R.id.list_item_forecast_textview);
         ListView listView = (ListView) rootView.findViewById(R.id.listview_forecast);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String forecast = (String) parent.getItemAtPosition(position);
+                Forecast forecast = (Forecast) parent.getItemAtPosition(position);
                 // Starting detail Activity passing forecast as EXTRA data
                 Intent intent = ((Intent) new Intent(getActivity(), DetailActivity.class)).
-                        putExtra(Intent.EXTRA_TEXT, forecast);
+                        putExtra(Intent.EXTRA_TEXT, forecast.toString());
                 startActivity(intent);
             }
         });
-
+        Log.d("getView:", "getView fin onCreateView");
         return rootView;
     }
 
@@ -91,5 +94,26 @@ public class ForecastFragment extends Fragment {
         super.onStart();
         updateWeather();
     }
+
+    /**
+     * Prepare the weather high/lows for presentation.
+     */
+    private String formatHighLows(double high, double low, String unitType) {
+
+        if (unitType.equals(getString(R.string.pref_units_imperial))) {
+            high = (high * 1.8) + 32;
+            low = (low * 1.8) + 32;
+        } else if (!unitType.equals(getString(R.string.pref_units_metric))) {
+            Log.d("UNIT LOG: ", "Unit type not found: " + unitType);
+        }
+
+        // For presentation, assume the user doesn't care about tenths of a degree.
+        long roundedHigh = Math.round(high);
+        long roundedLow = Math.round(low);
+
+        String highLowStr = roundedHigh + "/" + roundedLow;
+        return highLowStr;
+    }
+
 }
 
