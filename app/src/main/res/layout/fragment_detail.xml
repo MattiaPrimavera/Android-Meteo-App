@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,11 +8,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.xtech.sunshine_tutorial.DetailActivityFragment"
-    tools:showIn="@layout/activity_detail">
+    tools:showIn="@layout/activity_detail"
+    android:orientation="vertical">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="600px"
+        android:id="@+id/detail_icon"
+        android:layout_margin="20dp"
+        android:adjustViewBounds="true" />
+    <TextView
+        android:id="@+id/detail_day"
+        android:text="Hello World"
+        android:layout_width="match_parent"
+        android:layout_margin="10dp"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/detail_temp"
+        android:text="Hello World"
+        android:layout_width="match_parent"
+        android:layout_margin="10dp"
+        android:layout_height="wrap_content" />
     <TextView
         android:id="@+id/detail_text"
         android:text="Hello World"
         android:layout_width="match_parent"
+        android:layout_margin="10dp"
         android:layout_height="wrap_content" />
-</RelativeLayout>
+
+
+</LinearLayout>

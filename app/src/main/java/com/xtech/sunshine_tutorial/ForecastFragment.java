@@ -43,7 +43,7 @@ public class ForecastFragment extends Fragment {
                 Forecast forecast = (Forecast) parent.getItemAtPosition(position);
                 // Starting detail Activity passing forecast as EXTRA data
                 Intent intent = ((Intent) new Intent(getActivity(), DetailActivity.class)).
-                        putExtra(Intent.EXTRA_TEXT, forecast.toString());
+                        putExtra(Intent.EXTRA_TEXT, forecast.toJSON());
                 startActivity(intent);
             }
         });
