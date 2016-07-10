@@ -1,14 +1,9 @@
 package com.xtech.sunshine_tutorial;
 
-import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.ArrayAdapter;
-import android.widget.Toast;
-
 import org.json.JSONException;
 import java.io.BufferedReader;
 import java.io.IOException;
