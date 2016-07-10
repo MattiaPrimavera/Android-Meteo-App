@@ -2,6 +2,7 @@ package com.xtech.sunshine_tutorial;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.ImageView;
@@ -16,6 +17,8 @@ public class DownloadIconTask extends AsyncTask<String, Void, Bitmap> {
     }
 
     protected Bitmap doInBackground(String... urls) {
+        final String LOG_TAG = DownloadIconTask.class.getSimpleName();
+        Log.d(LOG_TAG, "doInBackground method");
         String urldisplay = urls[0];
         Bitmap mIcon11 = null;
         try {

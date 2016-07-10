@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -31,6 +32,7 @@ public class CustomWeatherAdapter extends ArrayAdapter<Forecast>{
             convertView = inflater.inflate(R.layout.list_item_forecast, parent, false);
             viewHolder.text = (TextView) convertView.findViewById(R.id.list_item_forecast_textview);
             convertView.setTag(viewHolder);
+            new DownloadIconTask((ImageView) convertView.findViewById(R.id.weather_icon)).execute("http://openweathermap.org/img/w/" + forecast.getIconName() + ".png");
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
