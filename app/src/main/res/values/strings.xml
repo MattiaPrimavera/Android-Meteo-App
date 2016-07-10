@@ -38,4 +38,6 @@
         <item>@string/pref_units_metric</item>
         <item>@string/pref_units_imperial</item>
     </string-array>
+
+    <string name="send_to">Share</string>
 </resources>

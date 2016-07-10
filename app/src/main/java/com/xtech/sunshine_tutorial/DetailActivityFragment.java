@@ -11,6 +11,7 @@ import android.widget.TextView;
 public class DetailActivityFragment extends Fragment {
 
     public DetailActivityFragment() {
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -24,4 +25,5 @@ public class DetailActivityFragment extends Fragment {
         }
         return rootView;
     }
+
 }
