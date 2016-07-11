@@ -28,28 +28,42 @@ public class CustomWeatherAdapter extends ArrayAdapter<Forecast>{
         // Check if an existing view is being reused, otherwise inflate the view
         ViewHolder viewHolder; // view lookup cache stored in tag
         if (convertView == null) {
-            viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.list_item_forecast, parent, false);
-            viewHolder.dayNumber = (TextView) convertView.findViewById(R.id.list_item_forecast_day_number);
-            viewHolder.dayString = (TextView) convertView.findViewById(R.id.list_item_forecast_day_string);
-            viewHolder.main = (TextView) convertView.findViewById(R.id.list_item_forecast_main);
-            viewHolder.temp = (TextView) convertView.findViewById(R.id.list_item_forecast_temp);
+            switch (position) {
+                case 0:
+                    viewHolder = new ViewHolder();
+                    convertView = inflater.inflate(R.layout.list_item_forecast_first, parent, false);
+                    viewHolder.dayNumber = (TextView) convertView.findViewById(R.id.list_item_forecast_day_number_first);
+                    viewHolder.dayString = (TextView) convertView.findViewById(R.id.list_item_forecast_day_string_first);
+                    viewHolder.main = (TextView) convertView.findViewById(R.id.list_item_forecast_main_first);
+                    viewHolder.temp = (TextView) convertView.findViewById(R.id.list_item_forecast_temp_first);
 
-            convertView.setTag(viewHolder);
-            new DownloadIconTask((ImageView) convertView.findViewById(R.id.weather_icon)).execute("http://openweathermap.org/img/w/" + forecast.getIconName() + ".png");
+                    convertView.setTag(viewHolder);
+                    new DownloadIconTask((ImageView) convertView.findViewById(R.id.weather_icon_first)).execute("http://openweathermap.org/img/w/" + forecast.getIconName() + ".png");
+                    viewHolder.temp.setTextSize(20);
+                    viewHolder.main.setTextSize(50);
+                    viewHolder.dayString.setTextSize(40);
+                    viewHolder.dayNumber.setTextSize(30);
+                    break;
+                default:
+                    viewHolder = new ViewHolder();
+                    convertView = inflater.inflate(R.layout.list_item_forecast, parent, false);
+                    viewHolder.dayNumber = (TextView) convertView.findViewById(R.id.list_item_forecast_day_number);
+                    viewHolder.dayString = (TextView) convertView.findViewById(R.id.list_item_forecast_day_string);
+                    viewHolder.main = (TextView) convertView.findViewById(R.id.list_item_forecast_main);
+                    viewHolder.temp = (TextView) convertView.findViewById(R.id.list_item_forecast_temp);
+
+                    convertView.setTag(viewHolder);
+                    new DownloadIconTask((ImageView) convertView.findViewById(R.id.weather_icon)).execute("http://openweathermap.org/img/w/" + forecast.getIconName() + ".png");
+                    // Populate the data into the template view using the data object
+                    break;
+            }
+            viewHolder.temp.setText(forecast.getTemp());
+            viewHolder.main.setText(forecast.getMain());
+            viewHolder.dayNumber.setText(forecast.getDayNumber());
+            viewHolder.dayString.setText(forecast.getDayString());
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
-        }
-        // Populate the data into the template view using the data object
-        viewHolder.temp.setText(forecast.getTemp());
-        viewHolder.main.setText(forecast.getMain());
-        viewHolder.dayNumber.setText(forecast.getDayNumber());
-        viewHolder.dayString.setText(forecast.getDayString());
-        if(position == 0){
-            viewHolder.temp.setTextSize(60);
-            viewHolder.dayString.setTextSize(40);
-            viewHolder.dayNumber.setTextSize(30);
         }
         if(position % 2 != 0){
             viewHolder.mainLayout = (LinearLayout) convertView.findViewById(R.id.list_item_forecast_main_layout);
