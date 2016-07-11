@@ -1,27 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
+    android:layout_margin="0px"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <TextView
-        android:id="@+id/detail_main"
+        android:id="@+id/detail_city"
         android:layout_width="match_parent"
+        android:background="@color/detail_city_background"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:textSize="40sp"
         android:layout_margin="10dp"
         android:layout_height="wrap_content" />
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="600px"
+        android:layout_height="300px"
         android:id="@+id/detail_icon"
         android:layout_margin="20dp"
         android:adjustViewBounds="true" />
+    <TextView
+        android:id="@+id/detail_main"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:textSize="35sp"
+        android:layout_margin="10dp"
+        android:layout_height="wrap_content" />
+
     <LinearLayout
         android:layout_height="match_parent"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
         android:orientation="horizontal">
         <TextView
             android:id="@+id/detail_day_label"
             android:text="@string/detail_day_label"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_margin="10dp"
             android:layout_height="wrap_content" />
         <TextView
@@ -32,12 +47,13 @@
     </LinearLayout>
     <LinearLayout
         android:layout_height="match_parent"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
         android:orientation="horizontal">
         <TextView
             android:id="@+id/detail_min_label"
             android:text="@string/detail_min_label"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_margin="10dp"
             android:layout_height="wrap_content" />
         <TextView
@@ -48,7 +64,8 @@
     </LinearLayout>
     <LinearLayout
         android:layout_height="match_parent"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
         android:orientation="horizontal">
         <TextView
             android:id="@+id/detail_max_label"
@@ -64,7 +81,8 @@
     </LinearLayout>
     <LinearLayout
         android:layout_height="match_parent"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
         android:orientation="horizontal">
         <TextView
             android:id="@+id/detail_night_label"
@@ -80,7 +98,8 @@
     </LinearLayout>
     <LinearLayout
         android:layout_height="match_parent"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
         android:orientation="horizontal">
         <TextView
             android:id="@+id/detail_morn_label"
@@ -96,7 +115,8 @@
     </LinearLayout>
     <LinearLayout
         android:layout_height="match_parent"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
         android:orientation="horizontal">
         <TextView
             android:id="@+id/detail_eve_label"

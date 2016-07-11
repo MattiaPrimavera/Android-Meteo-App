@@ -2,5 +2,7 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
+    <color name="white">#FFFF</color>
+    <color name="detail_city_background">#39a4c6</color>
     <color name="colorAccent">#FF4081</color>
 </resources>
