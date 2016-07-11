@@ -19,6 +19,8 @@ public class WeatherDataParser {
 
         ArrayList<Forecast> forecastList = new ArrayList<Forecast>();
         JSONObject reader = new JSONObject(weatherJsonStr);
+        JSONObject city = reader.getJSONObject("city");
+        String cityName = city.getString("name");
         JSONArray list = reader.getJSONArray("list");
         for (int i = 0; i < list.length(); i++) {
 
@@ -34,7 +36,7 @@ public class WeatherDataParser {
             String dayNumber = WeatherDataParser.getCurrentDayNumber(i);
             String dayString = WeatherDataParser.getCurrentDayString(i);
 
-            forecastList.add(new Forecast(dayNumber, dayString, main, max, iconName));
+            forecastList.add(new Forecast(dayNumber, dayString, main, max, iconName, cityName));
         }
 
         return forecastList;

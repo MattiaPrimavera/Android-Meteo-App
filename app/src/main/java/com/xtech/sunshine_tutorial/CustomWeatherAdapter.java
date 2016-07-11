@@ -14,7 +14,7 @@ public class CustomWeatherAdapter extends ArrayAdapter<Forecast>{
     // View lookup cache
     private static class ViewHolder {
         LinearLayout mainLayout;
-        TextView text, main, temp, dayNumber, dayString;
+        TextView text, main, temp, dayNumber, dayString, city;
     }
 
     public CustomWeatherAdapter(Context context, ArrayList<Forecast> forecast) {
@@ -37,9 +37,12 @@ public class CustomWeatherAdapter extends ArrayAdapter<Forecast>{
                     viewHolder.dayString = (TextView) convertView.findViewById(R.id.list_item_forecast_day_string_first);
                     viewHolder.main = (TextView) convertView.findViewById(R.id.list_item_forecast_main_first);
                     viewHolder.temp = (TextView) convertView.findViewById(R.id.list_item_forecast_temp_first);
+                    viewHolder.city = (TextView) convertView.findViewById(R.id.list_item_forecast_city_first);
 
                     convertView.setTag(viewHolder);
                     new DownloadIconTask((ImageView) convertView.findViewById(R.id.weather_icon_first)).execute("http://openweathermap.org/img/w/" + forecast.getIconName() + ".png");
+                    viewHolder.city.setText(forecast.getCity());
+
                     viewHolder.temp.setTextSize(20);
                     viewHolder.main.setTextSize(50);
                     viewHolder.dayString.setTextSize(40);

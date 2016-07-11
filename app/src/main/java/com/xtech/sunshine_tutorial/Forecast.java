@@ -4,25 +4,38 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Forecast {
-    private String dayNumber, dayString, main, temp, iconName;
+    private String dayNumber, dayString, main, temp, iconName, city;
 
-    public Forecast(String dayNumber, String dayString, String main, String temp, String iconName){
+    public Forecast(String dayNumber, String dayString, String main, String temp, String iconName, String city){
         this.dayNumber = dayNumber;
         this.dayString = dayString;
         this.main = main;
         this.temp = temp;
         this.iconName = iconName;
+        this.city = city;
     }
 
+    public String getCity(){ return this.city; }
     public String getDayString(){ return this.dayString; }
     public String getDayNumber(){ return this.dayNumber; }
     public String getMain(){ return this.main; }
     public String getTemp(){
         //No rounding made, I just cuttend the float value at the 4th position
-        return this.temp.substring(0,4) + "°";
+        switch(this.temp.length()) {
+            case 2:
+                return this.temp + "°";
+            case 3:
+                return this.temp.substring(0, 2) + "°";
+            case 4:
+                return this.temp.substring(0, 4) + "°";
+            default:
+                return this.temp.substring(0,2) + "°";
+        }
     }
+
     public String getIconName(){ return this.iconName; }
 
+    public void setCity(String city){ this.city = city; }
     public void setDayNumber(String dayNumber){ this.dayNumber = dayNumber; }
     public void setDayString(String dayString){ this.dayString = dayString; }
     public void setTemp(String temp){ this.temp = temp; }
@@ -35,6 +48,7 @@ public class Forecast {
             jsonObject.put("dayNumber", dayNumber);
             jsonObject.put("dayString", dayString);
             jsonObject.put("main", main);
+            jsonObject.put("city", city);
             jsonObject.put("temp", temp);
             jsonObject.put("iconName", iconName);
 
@@ -51,7 +65,8 @@ public class Forecast {
         String dayNumber = reader.getString("dayNumber");
         String dayString = reader.getString("dayString");
         String main = reader.getString("main");
+        String city = reader.getString("city");
         String iconName = reader.getString("iconName");
-        return new Forecast(dayNumber, dayString, main, temp, iconName);
+        return new Forecast(dayNumber, dayString, main, temp, iconName, city);
     }
 }
