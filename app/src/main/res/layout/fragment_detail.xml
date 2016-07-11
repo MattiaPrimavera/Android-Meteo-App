@@ -1,40 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/content_detail"
-
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.xtech.sunshine_tutorial.DetailActivityFragment"
-    tools:showIn="@layout/activity_detail"
-    android:orientation="vertical">
-
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/detail_main"
+        android:layout_width="match_parent"
+        android:layout_margin="10dp"
+        android:layout_height="wrap_content" />
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="600px"
         android:id="@+id/detail_icon"
         android:layout_margin="20dp"
         android:adjustViewBounds="true" />
-    <TextView
-        android:id="@+id/detail_day"
-        android:text="Hello World"
+    <LinearLayout
+        android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:layout_margin="10dp"
-        android:layout_height="wrap_content" />
-    <TextView
-        android:id="@+id/detail_temp"
-        android:text="Hello World"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/detail_day_label"
+            android:text="@string/detail_day_label"
+            android:layout_width="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/detail_day"
+            android:layout_width="match_parent"
+            android:layout_margin="10dp"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:layout_margin="10dp"
-        android:layout_height="wrap_content" />
-    <TextView
-        android:id="@+id/detail_text"
-        android:text="Hello World"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/detail_min_label"
+            android:text="@string/detail_min_label"
+            android:layout_width="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/detail_min"
+            android:layout_width="match_parent"
+            android:layout_margin="10dp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:layout_margin="10dp"
-        android:layout_height="wrap_content" />
-
-
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/detail_max_label"
+            android:text="@string/detail_max_label"
+            android:layout_width="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/detail_max"
+            android:layout_width="match_parent"
+            android:layout_margin="10dp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/detail_night_label"
+            android:text="@string/detail_night_label"
+            android:layout_width="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/detail_night"
+            android:layout_width="match_parent"
+            android:layout_margin="10dp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/detail_morn_label"
+            android:text="@string/detail_morn_label"
+            android:layout_width="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/detail_morn"
+            android:layout_width="match_parent"
+            android:layout_margin="10dp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/detail_eve_label"
+            android:text="@string/detail_eve_label"
+            android:layout_width="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/detail_eve"
+            android:layout_width="match_parent"
+            android:layout_margin="10dp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 </LinearLayout>

@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 
 public class WeatherDataParser {
     /**
@@ -27,7 +28,13 @@ public class WeatherDataParser {
             JSONObject dayInfos = (JSONObject) list.get(i);
 
             JSONObject temp = dayInfos.getJSONObject("temp");
-            String max = temp.getString("max");
+            HashMap<String, String> temperature = new HashMap<String, String>();
+            temperature.put("day", temp.getString("day"));
+            temperature.put("min", temp.getString("min"));
+            temperature.put("max", temp.getString("max"));
+            temperature.put("night", temp.getString("night"));
+            temperature.put("eve", temp.getString("eve"));
+            temperature.put("morn", temp.getString("morn"));
 
             JSONArray weather = dayInfos.getJSONArray("weather");
             String main = weather.getJSONObject(0).getString("main");
@@ -36,7 +43,7 @@ public class WeatherDataParser {
             String dayNumber = WeatherDataParser.getCurrentDayNumber(i);
             String dayString = WeatherDataParser.getCurrentDayString(i);
 
-            forecastList.add(new Forecast(dayNumber, dayString, main, max, iconName, cityName));
+            forecastList.add(new Forecast(dayNumber, dayString, main, temperature, iconName, cityName));
         }
 
         return forecastList;

@@ -61,7 +61,7 @@ public class CustomWeatherAdapter extends ArrayAdapter<Forecast>{
                     // Populate the data into the template view using the data object
                     break;
             }
-            viewHolder.temp.setText(forecast.getTemp());
+            viewHolder.temp.setText(forecast.getTempMax());
             viewHolder.main.setText(forecast.getMain());
             viewHolder.dayNumber.setText(forecast.getDayNumber());
             viewHolder.dayString.setText(forecast.getDayString());

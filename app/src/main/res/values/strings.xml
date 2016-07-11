@@ -40,4 +40,10 @@
     </string-array>
 
     <string name="send_to">Share</string>
+    <string name="detail_day_label">Day</string>
+    <string name="detail_min_label">Min</string>
+    <string name="detail_max_label">Max</string>
+    <string name="detail_night_label">Night</string>
+    <string name="detail_morn_label">Morn</string>
+    <string name="detail_eve_label">Eve</string>
 </resources>

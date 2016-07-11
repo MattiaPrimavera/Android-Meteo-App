@@ -32,9 +32,12 @@ public class DetailActivityFragment extends Fragment {
             }
             new DownloadIconTask((ImageView)rootView.findViewById(R.id.detail_icon)).execute("http://openweathermap.org/img/w/" + forecast.getIconName() + ".png");
             ((TextView) rootView.findViewById(R.id.detail_day)).setText(forecast.getDayNumber());
-            ((TextView) rootView.findViewById(R.id.detail_text)).setText(forecast.getMain());
-            ((TextView) rootView.findViewById(R.id.detail_temp)).setText(forecast.getTemp());
-
+            ((TextView) rootView.findViewById(R.id.detail_main)).setText(forecast.getMain());
+            ((TextView) rootView.findViewById(R.id.detail_max)).setText(forecast.getTempMax());
+            ((TextView) rootView.findViewById(R.id.detail_min)).setText(forecast.getTempMin());
+            ((TextView) rootView.findViewById(R.id.detail_morn)).setText(forecast.getTempMorn());
+            ((TextView) rootView.findViewById(R.id.detail_eve)).setText(forecast.getTempEve());
+            ((TextView) rootView.findViewById(R.id.detail_night)).setText(forecast.getTempNight());
         }
         return rootView;
     }
