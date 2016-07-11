@@ -14,7 +14,7 @@ public class CustomWeatherAdapter extends ArrayAdapter<Forecast>{
     // View lookup cache
     private static class ViewHolder {
         LinearLayout mainLayout;
-        TextView text, main, temp, dayNumber, dayString, city;
+        TextView text, main, day, dayNumber, dayString, city, max, min, umidity;
     }
 
     public CustomWeatherAdapter(Context context, ArrayList<Forecast> forecast) {
@@ -36,15 +36,17 @@ public class CustomWeatherAdapter extends ArrayAdapter<Forecast>{
                     viewHolder.dayNumber = (TextView) convertView.findViewById(R.id.list_item_forecast_day_number_first);
                     viewHolder.dayString = (TextView) convertView.findViewById(R.id.list_item_forecast_day_string_first);
                     viewHolder.main = (TextView) convertView.findViewById(R.id.list_item_forecast_main_first);
-                    viewHolder.temp = (TextView) convertView.findViewById(R.id.list_item_forecast_temp_first);
                     viewHolder.city = (TextView) convertView.findViewById(R.id.list_item_forecast_city_first);
+                    viewHolder.day = (TextView) convertView.findViewById(R.id.list_item_forecast_day_first);
+                    viewHolder.min = (TextView) convertView.findViewById(R.id.list_item_forecast_min_first);
+                    viewHolder.max = (TextView) convertView.findViewById(R.id.list_item_forecast_max_first);
 
                     convertView.setTag(viewHolder);
                     new DownloadIconTask((ImageView) convertView.findViewById(R.id.weather_icon_first)).execute("http://openweathermap.org/img/w/" + forecast.getIconName() + ".png");
                     viewHolder.city.setText(forecast.getCity());
+                    viewHolder.min.setText(forecast.getTempMin());
+                    viewHolder.max.setText(forecast.getTempMax());
 
-                    viewHolder.temp.setTextSize(20);
-                    viewHolder.main.setTextSize(50);
                     viewHolder.dayString.setTextSize(40);
                     viewHolder.dayNumber.setTextSize(30);
                     break;
@@ -54,24 +56,24 @@ public class CustomWeatherAdapter extends ArrayAdapter<Forecast>{
                     viewHolder.dayNumber = (TextView) convertView.findViewById(R.id.list_item_forecast_day_number);
                     viewHolder.dayString = (TextView) convertView.findViewById(R.id.list_item_forecast_day_string);
                     viewHolder.main = (TextView) convertView.findViewById(R.id.list_item_forecast_main);
-                    viewHolder.temp = (TextView) convertView.findViewById(R.id.list_item_forecast_temp);
+                    viewHolder.day = (TextView) convertView.findViewById(R.id.list_item_forecast_day);
 
                     convertView.setTag(viewHolder);
                     new DownloadIconTask((ImageView) convertView.findViewById(R.id.weather_icon)).execute("http://openweathermap.org/img/w/" + forecast.getIconName() + ".png");
                     // Populate the data into the template view using the data object
                     break;
             }
-            viewHolder.temp.setText(forecast.getTempMax());
             viewHolder.main.setText(forecast.getMain());
+            viewHolder.day.setText(forecast.getTempDay());
             viewHolder.dayNumber.setText(forecast.getDayNumber());
             viewHolder.dayString.setText(forecast.getDayString());
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        if(position % 2 != 0){
+        /*if(position % 2 != 0){
             viewHolder.mainLayout = (LinearLayout) convertView.findViewById(R.id.list_item_forecast_main_layout);
             viewHolder.mainLayout.setBackgroundColor(getContext().getResources().getColor(R.color.colorPrimary));
-        }
+        }*/
 
         // Return the completed view to render on screen
         return convertView;

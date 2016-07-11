@@ -6,10 +6,11 @@ import org.json.JSONObject;
 import java.util.HashMap;
 
 public class Forecast {
-    private String dayNumber, dayString, main, iconName, city;
+    private String dayNumber, dayString, main, iconName, city, umidity;
     private HashMap<String, String> temp;
 
-    public Forecast(String dayNumber, String dayString, String main, HashMap<String, String> temp, String iconName, String city){
+    public Forecast(String dayNumber, String dayString, String main, HashMap<String, String> temp, String iconName, String city, String umidity){
+        this.umidity = umidity;
         this.dayNumber = dayNumber;
         this.dayString = dayString;
         this.main = main;
@@ -18,23 +19,24 @@ public class Forecast {
         this.city = city;
     }
 
+    public String getUmidity(){ return this.umidity; }
     public String getCity(){ return this.city; }
     public String getDayString(){ return this.dayString; }
     public String getDayNumber(){ return this.dayNumber; }
     public String getMain(){ return this.main; }
     public String getTempMax(){
         String max = this.temp.get("max");
-        //No rounding made, I just cuttend the float value at the 4th position
-        return max.substring(0,2) + "°";
+        return this.formatTemp(max);
     }
 
-    public String getTempDay(){ return this.temp.get("day"); }
-    public String getTempMin(){ return this.temp.get("min"); }
-    public String getTempNight(){ return this.temp.get("night"); }
-    public String getTempEve(){ return this.temp.get("eve"); }
-    public String getTempMorn(){ return this.temp.get("morn"); }
+    public String getTempDay(){ return this.formatTemp(this.temp.get("day")); }
+    public String getTempMin(){ return this.formatTemp(this.temp.get("min")); }
+    public String getTempNight(){ return this.formatTemp(this.temp.get("night")); }
+    public String getTempEve(){ return this.formatTemp(this.temp.get("eve")); }
+    public String getTempMorn(){ return this.formatTemp(this.temp.get("morn")); }
     public String getIconName(){ return this.iconName; }
 
+    public void setUmidity(String umidity){ this.umidity = umidity; }
     public void setCity(String city){ this.city = city; }
     public void setDayNumber(String dayNumber){ this.dayNumber = dayNumber; }
     public void setDayString(String dayString){ this.dayString = dayString; }
@@ -60,7 +62,7 @@ public class Forecast {
             jsonObject.put("morn", getTempMorn());
             jsonObject.put("night", getTempNight());
             jsonObject.put("day", getTempDay());
-
+            jsonObject.put("umidity", getUmidity());
             jsonObject.put("temp", temp);
             jsonObject.put("iconName", iconName);
 
@@ -91,7 +93,12 @@ public class Forecast {
         String dayString = reader.getString("dayString");
         String main = reader.getString("main");
         String city = reader.getString("city");
+        String umidity = reader.getString("umidity");
         String iconName = reader.getString("iconName");
-        return new Forecast(dayNumber, dayString, main, temp, iconName, city);
+        return new Forecast(dayNumber, dayString, main, temp, iconName, city, umidity);
+    }
+
+    public String formatTemp(String temp){
+        return temp.substring(0,2) + "°";
     }
 }
