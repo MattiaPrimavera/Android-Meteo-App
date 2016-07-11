@@ -114,6 +114,5 @@ public class ForecastFragment extends Fragment {
         String highLowStr = roundedHigh + "/" + roundedLow;
         return highLowStr;
     }
-
 }
 

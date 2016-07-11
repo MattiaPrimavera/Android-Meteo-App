@@ -31,7 +31,7 @@ public class DetailActivityFragment extends Fragment {
                 e.printStackTrace();
             }
             new DownloadIconTask((ImageView)rootView.findViewById(R.id.detail_icon)).execute("http://openweathermap.org/img/w/" + forecast.getIconName() + ".png");
-            ((TextView) rootView.findViewById(R.id.detail_day)).setText(forecast.getDay());
+            ((TextView) rootView.findViewById(R.id.detail_day)).setText(forecast.getDayNumber());
             ((TextView) rootView.findViewById(R.id.detail_text)).setText(forecast.getMain());
             ((TextView) rootView.findViewById(R.id.detail_temp)).setText(forecast.getTemp());
 

@@ -3,11 +3,10 @@ package com.xtech.sunshine_tutorial;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.TimeZone;
+import java.util.Date;
 
 public class WeatherDataParser {
     /**
@@ -32,14 +31,16 @@ public class WeatherDataParser {
             String main = weather.getJSONObject(0).getString("main");
             String iconName = weather.getJSONObject(0).getString("icon");
 
-            String day = WeatherDataParser.getCurrentDate();
-            forecastList.add(new Forecast(day, main, max, iconName));
+            String dayNumber = WeatherDataParser.getCurrentDayNumber(i);
+            String dayString = WeatherDataParser.getCurrentDayString(i);
+
+            forecastList.add(new Forecast(dayNumber, dayString, main, max, iconName));
         }
 
         return forecastList;
     }
 
-    public static String getCurrentDate(){
+    public static String getCurrentDayNumber(int shift) {
         // OWM returns daily forecasts based upon the local time of the city that is being
         // asked for, which means that we need to know the GMT offset to translate this data
         // properly.
@@ -47,37 +48,39 @@ public class WeatherDataParser {
         // Since this data is also sent in-order and the first day is always the
         // current day, we're going to take advantage of that to get a nice
         // normalized UTC date for all of our weather.
+        SimpleDateFormat sdf = new SimpleDateFormat("dd");
+        Calendar c = Calendar.getInstance();
+        c.setTime(new Date()); // Now use today date.
+        c.add(Calendar.DATE, shift); // Adding 5 days
+        String output = sdf.format(c.getTime());
+        return output;
+    }
 
-        DateFormat df = new SimpleDateFormat("dd MM yyyy");
-        String date = df.format(Calendar.getInstance().getTime());
+    public static String getCurrentDayString(int shift){
+        Calendar calendar = Calendar.getInstance();
+        Date date = calendar.getTime();
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        c.add(Calendar.DATE, shift - 2);
+        int currentDayOfWeek = c.get(Calendar.DAY_OF_WEEK);
 
-        Calendar localCalendar = Calendar.getInstance(TimeZone.getDefault());
-        int currentDayOfWeek = localCalendar.get(Calendar.DAY_OF_WEEK);
-        switch(currentDayOfWeek){
+        switch(currentDayOfWeek % 7){
             case 0:
-                date += " - Mon";
-                break;
+                return "Mon";
             case 1:
-                date += " - Tue";
-                break;
+                return "Tue";
             case 2:
-                date += " - Wed";
-                break;
+                return "Wed";
             case 3:
-                date += " - Thr";
-                break;
+                return "Thr";
             case 4:
-                date += " - Fri";
-                break;
+                return "Fri";
             case 5:
-                date += " - Sat";
-                break;
+                return "Sat";
             case 6:
-                date += " - Sun";
-                break;
+                return "Sun";
+            default:
+                return "Err";
         }
-
-        return date;
-
     }
 }

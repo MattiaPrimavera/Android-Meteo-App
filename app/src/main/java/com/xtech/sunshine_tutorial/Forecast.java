@@ -1,38 +1,39 @@
 package com.xtech.sunshine_tutorial;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-
 public class Forecast {
-    private String day, main, temp, iconName;
+    private String dayNumber, dayString, main, temp, iconName;
 
-    public Forecast(String day, String main, String temp, String iconName){
-        this.day = day;
+    public Forecast(String dayNumber, String dayString, String main, String temp, String iconName){
+        this.dayNumber = dayNumber;
+        this.dayString = dayString;
         this.main = main;
         this.temp = temp;
         this.iconName = iconName;
     }
 
-    public String getDay(){ return this.day; }
+    public String getDayString(){ return this.dayString; }
+    public String getDayNumber(){ return this.dayNumber; }
     public String getMain(){ return this.main; }
-    public String getTemp(){ return this.temp; }
+    public String getTemp(){
+        //No rounding made, I just cuttend the float value at the 4th position
+        return this.temp.substring(0,4) + "°";
+    }
     public String getIconName(){ return this.iconName; }
 
-    public void setDay(String day){ this.day = day; }
+    public void setDayNumber(String dayNumber){ this.dayNumber = dayNumber; }
+    public void setDayString(String dayString){ this.dayString = dayString; }
     public void setTemp(String temp){ this.temp = temp; }
     public void setMain(String main){ this.main = main; }
     public void setIconName(String iconName){ this.iconName = iconName; }
 
-    public String toString(){
-        return this.day + " - " + this.main + " - " + this.temp;
-    }
     public String toJSON() {
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("day", day);
+            jsonObject.put("dayNumber", dayNumber);
+            jsonObject.put("dayString", dayString);
             jsonObject.put("main", main);
             jsonObject.put("temp", temp);
             jsonObject.put("iconName", iconName);
@@ -47,9 +48,10 @@ public class Forecast {
     public static Forecast fromJSON(String json) throws JSONException {
         JSONObject reader = new JSONObject(json);
         String temp = reader.getString("temp");
-        String day = reader.getString("day");
+        String dayNumber = reader.getString("dayNumber");
+        String dayString = reader.getString("dayString");
         String main = reader.getString("main");
         String iconName = reader.getString("iconName");
-        return new Forecast(day, main, temp, iconName);
+        return new Forecast(dayNumber, dayString, main, temp, iconName);
     }
 }

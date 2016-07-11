@@ -1,19 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="horizontal" >
-
-    <ImageView
-        android:layout_width="200px"
-        android:layout_height="match_parent"
-        android:id="@+id/weather_icon"
-        android:layout_marginRight="20dp"
-        android:adjustViewBounds="true" />
-    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:id="@+id/list_item_forecast_main_layout"
+    android:background="@color/colorPrimaryDark">
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:gravity="center_vertical"
-        android:minHeight="?android:attr/listPreferredItemHeight"
-        android:id="@+id/list_item_forecast_textview" />
+        android:orientation="vertical"
+        android:id="@+id/list_item_forecast_layout_temp"
+        android:gravity="center" >
+
+        <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:textSize="40sp"
+            android:id="@+id/list_item_forecast_temp" />
+        <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:id="@+id/list_item_forecast_main" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:orientation="horizontal"
+        android:id="@+id/list_item_forecast_layout_icon"
+        android:gravity="center" >
+
+        <ImageView
+            android:layout_width="200px"
+            android:layout_height="match_parent"
+            android:id="@+id/weather_icon"
+            android:layout_marginLeft="200px"
+            android:layout_gravity="center"
+            android:adjustViewBounds="true" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/list_item_forecast_layout_day"
+        android:orientation="vertical"
+        android:gravity="center" >
+        <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:id="@+id/list_item_forecast_day_string" />
+        <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:id="@+id/list_item_forecast_day_number" />
+    </LinearLayout>
 </LinearLayout>
