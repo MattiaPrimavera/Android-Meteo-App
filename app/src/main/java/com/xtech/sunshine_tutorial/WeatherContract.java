@@ -6,7 +6,6 @@ public class WeatherContract {
     public static final class LocationEntry implements BaseColumns {
         public static final String TABLE_NAME = "location";
         public static final String COL_CITY_NAME = "city_name";
-        public static final String COL_LOCATION_SETTING = "location_setting";
     }
     public static final class WeatherEntry implements BaseColumns {
         public static final String TABLE_NAME = "weather";

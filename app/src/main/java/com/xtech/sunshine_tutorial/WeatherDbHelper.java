@@ -55,8 +55,7 @@ public class WeatherDbHelper extends SQLiteOpenHelper {
     public void createLocationTable(SQLiteDatabase sqLiteDatabase){
         final String SQL_CREATE_LOCATION_TABLE = "CREATE TABLE " + LocationEntry.TABLE_NAME + " (" +
                 LocationEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                LocationEntry.COL_CITY_NAME + " TEXT NOT NULL, " +
-                LocationEntry.COL_LOCATION_SETTING + " INTEGER NOT NULL)";
+                LocationEntry.COL_CITY_NAME + " TEXT NOT NULL)";
         sqLiteDatabase.execSQL(SQL_CREATE_LOCATION_TABLE);
     }
 }
