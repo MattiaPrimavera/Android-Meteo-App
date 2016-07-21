@@ -117,7 +117,7 @@ public class TestDb extends AndroidTestCase{
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         // Creation of ContentValues to insert
-        ContentValues testValues = TestUtils.createInsertValues();
+        ContentValues testValues = TestUtils.createInsertLocationValues();
 
         // Insert ContentValues into database
         long locationRowId;
