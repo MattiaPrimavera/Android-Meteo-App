@@ -409,20 +409,14 @@ public class TestProvider extends AndroidTestCase {
         return returnContentValues;
     }
 
-    // Student: Uncomment this test after you have completed writing the BulkInsert functionality
-    // in your provider.  Note that this test will work with the built-in (default) provider
-    // implementation, which just inserts records one-at-a-time, so really do implement the
-    // BulkInsert ContentProvider function.
-/*    public void testBulkInsert() {
-        // first, let's create a location value
+    public void testBulkInsert() {
+        // Creating location value
         ContentValues testValues = TestUtils.createNorthPoleLocationValues();
         Uri locationUri = mContext.getContentResolver().insert(LocationEntry.CONTENT_URI, testValues);
         long locationRowId = ContentUris.parseId(locationUri);
-
-        // Verify we got a row back.
         assertTrue(locationRowId != -1);
 
-        // A cursor is your primary interface to the query results.
+        // Getting a cursor, primary interface to query results.
         Cursor cursor = mContext.getContentResolver().query(
                 LocationEntry.CONTENT_URI,
                 null, // leaving "columns" null just returns all the columns.
@@ -434,9 +428,6 @@ public class TestProvider extends AndroidTestCase {
         TestUtils.validateCursor("testBulkInsert. Error validating LocationEntry.",
                 cursor, testValues);
 
-        // Now we can bulkInsert some weather.  In fact, we only implement BulkInsert for weather
-        // entries.  With ContentProviders, you really only have to implement the features you
-        // use, after all.
         ContentValues[] bulkInsertContentValues = createBulkInsertWeatherValues(locationRowId);
 
         // Register a content observer for our bulk insert.
@@ -445,21 +436,16 @@ public class TestProvider extends AndroidTestCase {
 
         int insertCount = mContext.getContentResolver().bulkInsert(WeatherEntry.CONTENT_URI, bulkInsertContentValues);
 
-        // Students:  If this fails, it means that you most-likely are not calling the
-        // getContext().getContentResolver().notifyChange(uri, null); in your BulkInsert
-        // ContentProvider method.
         weatherObserver.waitForNotificationOrFail();
         mContext.getContentResolver().unregisterContentObserver(weatherObserver);
-
         assertEquals(insertCount, BULK_INSERT_RECORDS_TO_INSERT);
 
-        // A cursor is your primary interface to the query results.
         cursor = mContext.getContentResolver().query(
                 WeatherEntry.CONTENT_URI,
                 null, // leaving "columns" null just returns all the columns.
                 null, // cols for "where" clause
                 null, // values for "where" clause
-                WeatherEntry.COL_DATE + " ASC"  // sort order == by DATE ASCENDING
+                WeatherEntry.COL_DATE  // sort order
         );
 
         // we should have as many records in the database as we've inserted
@@ -472,5 +458,5 @@ public class TestProvider extends AndroidTestCase {
                     cursor, bulkInsertContentValues[i]);
         }
         cursor.close();
-    }*/
+    }
 }
