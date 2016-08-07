@@ -18,5 +18,9 @@ Otherwise, just one is used and the user must click to get deeper details of an 
 
 Soon to come ...
 
+# Architecture
+
+!["Image Taken From Udacity Class"](http://lh3.ggpht.com/JnCPvS_BHwqRiKSKEei1cmbdfLsvO1m1ys59TLdG5kv2AdiooZ6Bm0jXRKd-K2hQCfRC6U8O_4EdnXxcxsw=s0#w=676&h=344)
+
 # Subjects covered
 
