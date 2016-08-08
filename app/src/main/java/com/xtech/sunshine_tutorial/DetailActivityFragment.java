@@ -1,15 +1,12 @@
 package com.xtech.sunshine_tutorial;
 
 import android.content.Intent;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
-
-import org.json.JSONException;
 
 public class DetailActivityFragment extends Fragment {
 
@@ -22,7 +19,10 @@ public class DetailActivityFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
         Intent intent = getActivity().getIntent();
-        if(intent != null && intent.hasExtra(Intent.EXTRA_TEXT)) {
+        if(intent != null) {
+            String jsonForecast = intent.getDataString();
+            ((TextView) rootView.findViewById(R.id.detail_day)).setText(jsonForecast);
+/*
             String jsonForecast = intent.getStringExtra(Intent.EXTRA_TEXT);
             Forecast forecast = null;
             try {
@@ -39,6 +39,7 @@ public class DetailActivityFragment extends Fragment {
             ((TextView) rootView.findViewById(R.id.detail_morn)).setText(forecast.getTempMorn());
             ((TextView) rootView.findViewById(R.id.detail_eve)).setText(forecast.getTempEve());
             ((TextView) rootView.findViewById(R.id.detail_night)).setText(forecast.getTempNight());
+*/
         }
         return rootView;
     }

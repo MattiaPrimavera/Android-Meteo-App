@@ -1,6 +1,7 @@
 package com.xtech.sunshine_tutorial;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
@@ -19,6 +20,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -36,6 +38,8 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
             WeatherContract.WeatherEntry.COL_MIN_TEMP,
             WeatherContract.LocationEntry.COL_CITY_NAME,
             WeatherContract.WeatherEntry.COL_WEATHER_ID,
+            WeatherContract.WeatherEntry.COL_ICON,
+            WeatherContract.WeatherEntry.COL_HUMIDITY
     };
 
     // These indices are tied to FORECAST_COLUMNS.  If FORECAST_COLUMNS changes, these
@@ -47,6 +51,8 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
     static final int COL_WEATHER_MIN_TEMP = 4;
     static final int COL_LOCATION = 5;
     static final int COL_WEATHER_CONDITION_ID = 6;
+    static final int COL_WEATHER_ICON = 7;
+    static final int COL_WEATHER_HUMIDITY = 8;
 
     public ForecastFragment() {
     }
@@ -70,6 +76,24 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
         this.adapter = new ForecastAdapter(getActivity(), cur, 0);
         ListView listView = (ListView) rootView.findViewById(R.id.listview_forecast);
         listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView adapterView, View view, int position, long l) {
+                // CursorAdapter returns a cursor at the correct position for getItem(), or null
+                // if it cannot seek to that position.
+                Cursor cursor = (Cursor) adapterView.getItemAtPosition(position);
+                if (cursor != null) {
+                    String locationSetting = Utility.getPreferredLocation(getActivity());
+                    Intent intent = new Intent(getActivity(), DetailActivity.class)
+                            .setData(WeatherContract.WeatherEntry.buildWeatherLocation(
+                                    locationSetting));
+                    startActivity(intent);
+                }
+            }
+        });
+
 /*        ListView listView = (ListView) rootView.findViewById(R.id.listview_forecast);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
