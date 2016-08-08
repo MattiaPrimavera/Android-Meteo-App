@@ -20,12 +20,12 @@ public class ForecastAdapter extends CursorAdapter {
 
     private Forecast convertCursorRowToForecast(Cursor cursor) {
         // get row indices for our cursor
-        int max_temp = cursor.getColumnIndex(WeatherContract.WeatherEntry.COL_MAX_TEMP);
-        int min_temp = cursor.getColumnIndex(WeatherContract.WeatherEntry.COL_MIN_TEMP);
-        int date = cursor.getColumnIndex(WeatherContract.WeatherEntry.COL_DATE);
-        int main = cursor.getColumnIndex(WeatherContract.WeatherEntry.COL_DESC);
-        int humidity = cursor.getColumnIndex(WeatherContract.WeatherEntry.COL_HUMIDITY);
-        int icon = cursor.getColumnIndex(WeatherContract.WeatherEntry.COL_ICON);
+        int max_temp = ForecastFragment.COL_WEATHER_MAX_TEMP;
+        int min_temp = ForecastFragment.COL_WEATHER_MIN_TEMP;
+        int date = ForecastFragment.COL_WEATHER_DATE;
+        int main = ForecastFragment.COL_WEATHER_DESC;
+        int humidity = ForecastFragment.COL_WEATHER_HUMIDITY;
+        int icon = ForecastFragment.COL_WEATHER_ICON;
         String dayNumber = WeatherDataParser.getCurrentDayNumber(0);
 
         Forecast result = new Forecast(dayNumber, cursor.getString(date), cursor.getString(main), null, cursor.getString(icon), "", cursor.getString(humidity));
