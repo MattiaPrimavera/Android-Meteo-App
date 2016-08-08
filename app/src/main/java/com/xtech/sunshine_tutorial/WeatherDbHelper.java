@@ -8,7 +8,7 @@ import com.xtech.sunshine_tutorial.WeatherContract.WeatherEntry;
 
 public class WeatherDbHelper extends SQLiteOpenHelper {
     // If you change the database schema, you must increment the database version.
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
     static final String DATABASE_NAME = "sunshine.db";
 
     public WeatherDbHelper(Context context) {
@@ -17,6 +17,8 @@ public class WeatherDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
+//        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + LocationEntry.TABLE_NAME);
+//        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + WeatherEntry.TABLE_NAME);
         this.createLocationTable(sqLiteDatabase);
         this.createWeatherTable(sqLiteDatabase);
     }
@@ -35,12 +37,13 @@ public class WeatherDbHelper extends SQLiteOpenHelper {
                 WeatherEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 // the ID of the location entry associated with this weather data
                 WeatherEntry.COL_LOC_KEY + " INTEGER NOT NULL, " +
+                WeatherEntry.COL_WEATHER_ID + " INTEGER NOT NULL," +
                 WeatherEntry.COL_DATE + " INTEGER NOT NULL, " +
                 WeatherEntry.COL_DESC + " TEXT NOT NULL, " +
-                WeatherEntry.COL_WEATHER_ID + " INTEGER NOT NULL," +
                 WeatherEntry.COL_MIN_TEMP + " REAL NOT NULL, " +
                 WeatherEntry.COL_MAX_TEMP + " REAL NOT NULL, " +
                 WeatherEntry.COL_HUMIDITY + " REAL NOT NULL, " +
+                WeatherEntry.COL_ICON + " TEXT NOT NULL, " +
 
                 // Location column as foreign key to location table.
                 " FOREIGN KEY (" + WeatherEntry.COL_LOC_KEY + ") REFERENCES " +

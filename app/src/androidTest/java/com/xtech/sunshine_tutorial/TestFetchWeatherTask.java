@@ -19,7 +19,7 @@ public class TestFetchWeatherTask extends AndroidTestCase{
                 CITY_ATTR + " = ?",
                 new String[]{WeatherContract.LocationEntry.COL_CITY_NAME});
 
-        FetchWeatherTask fwt = new FetchWeatherTask(getContext(), null);
+        FetchWeatherTask fwt = new FetchWeatherTask(getContext());
         long locationId = fwt.addLocation(ADD_LOCATION_CITY);
 
         // does addLocation return a valid record ID?
