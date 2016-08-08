@@ -52,6 +52,7 @@ public class WeatherContract {
         public static final String COL_LOC_KEY = "location";
         public static final String COL_DATE = "date";
         public static final String COL_DESC = "desc";
+        public static final String COL_ICON = "icon";
         public static final String COL_WEATHER_ID = "weather_id";
 
         public static final Uri CONTENT_URI =
