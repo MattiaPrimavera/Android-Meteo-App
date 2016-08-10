@@ -14,7 +14,17 @@ public class Forecast {
         this.dayNumber = dayNumber;
         this.dayString = dayString;
         this.main = main;
-        this.temp = temp;
+        if(temp == null) {
+            this.temp = new HashMap<String, String>();
+            this.temp.put("day", "0");
+            this.temp.put("eve", "0");
+            this.temp.put("night", "0");
+            this.temp.put("max", "0");
+            this.temp.put("min", "0");
+            this.temp.put("morn", "0");
+        }
+        else
+            this.temp = temp;
         this.iconName = iconName;
         this.city = city;
     }
@@ -73,6 +83,10 @@ public class Forecast {
         }
     }
 
+    public String toString(){
+        return this.getCity() + ", " + this.getTempMax() + ", " + this.getMain();
+    }
+
     public static Forecast fromJSON(String json) throws JSONException {
         JSONObject reader = new JSONObject(json);
         HashMap<String, String> temp = new HashMap<String, String>();
@@ -99,6 +113,8 @@ public class Forecast {
     }
 
     public String formatTemp(String temp){
+        if (temp.length() < 2)
+            return "40°";
         return temp.substring(0,2) + "°";
     }
 }
