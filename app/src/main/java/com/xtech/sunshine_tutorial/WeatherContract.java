@@ -48,9 +48,14 @@ public class WeatherContract {
         public static final String TABLE_NAME = "weather";
         public static final String COL_MIN_TEMP = "min";
         public static final String COL_MAX_TEMP = "max";
+        public static final String COL_MORN_TEMP = "morn";
+        public static final String COL_EVE_TEMP = "eve";
+        public static final String COL_NIGHT_TEMP = "night";
+        public static final String COL_DAY_TEMP = "day";
         public static final String COL_HUMIDITY = "humidity";
         public static final String COL_LOC_KEY = "location";
         public static final String COL_DATE = "date";
+        public static final String COL_DAY = "day_number";
         public static final String COL_DESC = "desc";
         public static final String COL_ICON = "icon";
         public static final String COL_WEATHER_ID = "weather_id";

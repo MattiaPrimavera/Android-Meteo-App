@@ -33,6 +33,13 @@ public class Utility {
             c.put(WeatherContract.WeatherEntry.COL_MIN_TEMP, forecast.get(i).getTempMin());
             c.put(WeatherContract.WeatherEntry.COL_WEATHER_ID, "4342");
             c.put(WeatherContract.WeatherEntry.COL_ICON, forecast.get(i).getIconName());
+            c.put(WeatherContract.WeatherEntry.COL_DAY, forecast.get(i).getDayNumber());
+
+            c.put(WeatherContract.WeatherEntry.COL_DAY_TEMP, forecast.get(i).getTempDay());
+            c.put(WeatherContract.WeatherEntry.COL_MORN_TEMP, forecast.get(i).getTempMorn());
+            c.put(WeatherContract.WeatherEntry.COL_EVE_TEMP, forecast.get(i).getTempEve());
+            c.put(WeatherContract.WeatherEntry.COL_NIGHT_TEMP, forecast.get(i).getTempNight());
+
             result[i] = c;
         }
         return result;
