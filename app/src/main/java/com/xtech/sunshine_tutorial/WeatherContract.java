@@ -6,6 +6,8 @@ import android.net.Uri;
 import android.provider.BaseColumns;
 import android.text.format.Time;
 
+import java.util.Calendar;
+
 public class WeatherContract {
     // Example of Content URI : content://com.example.android.sunshine.app/givemeroot/
     public static final String CONTENT_AUTHORITY = "com.xtech.sunshine_tutorial";
@@ -14,6 +16,17 @@ public class WeatherContract {
     // Possible paths (database tables)
     public static final String PATH_WEATHER = "weather";
     public static final String PATH_LOCATION = "location";
+
+    public static String getDateString(long timestamp){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(timestamp);
+
+        int mYear = calendar.get(Calendar.YEAR);
+        int mMonth = calendar.get(Calendar.MONTH);
+        int mDay = calendar.get(Calendar.DAY_OF_MONTH);
+
+        return mDay + "/" + mMonth + "/" + mYear;
+    }
 
     // To make it easy to query for the exact date, we normalize all dates that go into
     // the database to the start of the the Julian day at UTC.
