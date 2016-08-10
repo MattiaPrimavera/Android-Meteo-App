@@ -39,7 +39,7 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
             WeatherContract.LocationEntry.COL_CITY_NAME,
             WeatherContract.WeatherEntry.COL_WEATHER_ID,
             WeatherContract.WeatherEntry.COL_ICON,
-            WeatherContract.WeatherEntry.COL_HUMIDITY
+            WeatherContract.WeatherEntry.COL_HUMIDITY,
     };
 
     // These indices are tied to FORECAST_COLUMNS.  If FORECAST_COLUMNS changes, these
@@ -66,11 +66,19 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
         //this.adapter = new ArrayAdapter<String>(getActivity(), R.layout.list_item_forecast, R.id.list_item_forecast_textview);
 
         String locationSetting = Utility.getPreferredLocation(getActivity());
+        Log.d("TEST: ", "Fetching database for date : " + WeatherContract.getDateString(System.currentTimeMillis()));
 
-        Uri weatherForLocationUri = WeatherContract.WeatherEntry.buildWeatherLocation(
+        String date = WeatherContract.getDateString(System.currentTimeMillis());
+        Uri weatherForLocationUriWithStartDate = WeatherContract.WeatherEntry.buildWeatherLocationWithDate(
+                locationSetting, date);
+
+        Uri weatherForLocation = WeatherContract.WeatherEntry.buildWeatherLocation(
                 locationSetting);
 
-        Cursor cur = getActivity().getContentResolver().query(weatherForLocationUri,
+/*        Cursor cur = getActivity().getContentResolver().query(weatherForLocationUriWithStartDate,
+                null, null, null, null);
+*/
+        Cursor cur = getActivity().getContentResolver().query(weatherForLocation,
                 null, null, null, null);
 
         this.adapter = new ForecastAdapter(getActivity(), cur, 0);
@@ -118,19 +126,43 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
 
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
+//        String locationSetting = Utility.getPreferredLocation(getActivity());
+//
+//        // Sort order:  Ascending, by date.
+//        String sortOrder = WeatherContract.WeatherEntry.COL_DATE;
+//        Uri weatherForLocationUriWithStartDate = WeatherContract.WeatherEntry.buildWeatherLocationWithStartDate(
+//                locationSetting, WeatherContract.getDateString(System.currentTimeMillis()));
+//
+//        return new CursorLoader(getActivity(),
+//                weatherForLocationUriWithStartDate,
+//                FORECAST_COLUMNS,
+//                null,
+//                null,
+//                sortOrder);
+
         String locationSetting = Utility.getPreferredLocation(getActivity());
 
-        // Sort order:  Ascending, by date.
-        String sortOrder = WeatherContract.WeatherEntry.COL_DATE;
-        Uri weatherForLocationUri = WeatherContract.WeatherEntry.buildWeatherLocationWithStartDate(
-                locationSetting, WeatherDataParser.getCurrentDayNumber(0));
+        Uri weatherForLocation = WeatherContract.WeatherEntry.buildWeatherLocation(
+                locationSetting);
+
+        Cursor cur = getActivity().getContentResolver().query(weatherForLocation, null, null, null, null);
+        Log.d("TEST: Querying for today's date gives rows : ", Integer.toString(cur.getCount()));
+
+//        // Checking if we already have weather info on that date, so we update
+//        Uri weatherForLocationUriWithStartDate = WeatherContract.WeatherEntry.buildWeatherLocationWithDate(
+//        locationSetting, WeatherContract.getDateString(System.currentTimeMillis() - 3600 * 24 * 1000 * 5));
+//
+//
+//        Cursor cur = getActivity().getContentResolver().query(weatherForLocationUriWithStartDate, null, null, null, null);
+//        Log.d("TEST: Querying for today's date gives rows : ", Integer.toString(cur.getCount()));
 
         return new CursorLoader(getActivity(),
-                weatherForLocationUri,
+                weatherForLocation,
                 FORECAST_COLUMNS,
                 null,
                 null,
-                sortOrder);
+                null);
+
     }
 
     @Override
