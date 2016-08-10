@@ -287,11 +287,27 @@ public class WeatherProvider extends ContentProvider {
         final int match = uriMatcher.match(uri);
         switch (match) {
             case WEATHER:
+                // Checking if Weather for that city
+                String locationSetting = Utility.getPreferredLocation(getContext());
+
+                Uri weatherForLocation = WeatherContract.WeatherEntry.buildWeatherLocation(
+                        locationSetting);
+
+                // Checking if there's already weather info on that location
+                Cursor cur = getContext().getContentResolver().query(weatherForLocation, null, null, null, null);
+                int count = cur.getCount();
+
                 db.beginTransaction();
                 int returnCount = 0;
                 try {
                     for (ContentValues value : values) {
-                        long _id = db.insert(WeatherContract.WeatherEntry.TABLE_NAME, null, value);
+                        long _id = 0;
+                        if(count == 7){ //Update
+                            _id = db.update(WeatherContract.WeatherEntry.TABLE_NAME, value, "day_number = ?", null);
+                        }else { //Insertion
+                            _id = db.insert(WeatherContract.WeatherEntry.TABLE_NAME, null, value);
+                        }
+
                         if (_id != -1) {
                             returnCount++;
                         }
