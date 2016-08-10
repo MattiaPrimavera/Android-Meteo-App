@@ -42,7 +42,7 @@ public class WeatherDataParser {
             String dayNumber = WeatherDataParser.getCurrentDayNumber(i);
             String dayString = WeatherDataParser.getCurrentDayString(i);
 
-            forecastList.add(new Forecast(dayNumber, dayString, main, temperature, iconName, cityName, humidity));
+            forecastList.add(new Forecast(dayNumber, dayString, main, temperature, iconName, cityName, humidity, System.currentTimeMillis()));
         }
 
         return forecastList;

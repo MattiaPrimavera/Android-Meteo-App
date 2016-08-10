@@ -28,7 +28,7 @@ public class ForecastAdapter extends CursorAdapter {
         int icon = ForecastFragment.COL_WEATHER_ICON;
         String dayNumber = WeatherDataParser.getCurrentDayNumber(0);
 
-        Forecast result = new Forecast(dayNumber, cursor.getString(date), cursor.getString(main), null, cursor.getString(icon), "", cursor.getString(humidity));
+        Forecast result = new Forecast(dayNumber, cursor.getString(date), cursor.getString(main), null, cursor.getString(icon), "", cursor.getString(humidity), System.currentTimeMillis());
         result.setTempMin(cursor.getString(min_temp));
         result.setTempMax(cursor.getString(max_temp));
 

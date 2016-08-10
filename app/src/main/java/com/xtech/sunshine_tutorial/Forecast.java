@@ -7,10 +7,12 @@ import java.util.HashMap;
 
 public class Forecast {
     private String dayNumber, dayString, main, iconName, city, umidity;
+    private Long date;
     private HashMap<String, String> temp;
 
-    public Forecast(String dayNumber, String dayString, String main, HashMap<String, String> temp, String iconName, String city, String umidity){
+    public Forecast(String dayNumber, String dayString, String main, HashMap<String, String> temp, String iconName, String city, String umidity, Long date){
         this.umidity = umidity;
+        this.date = date;
         this.dayNumber = dayNumber;
         this.dayString = dayString;
         this.main = main;
@@ -29,6 +31,7 @@ public class Forecast {
         this.city = city;
     }
 
+    public Long getDate(){ return this.date; }
     public String getUmidity(){ return this.umidity; }
     public String getCity(){ return this.city; }
     public String getDayString(){ return this.dayString; }
@@ -46,6 +49,7 @@ public class Forecast {
     public String getTempMorn(){ return this.formatTemp(this.temp.get("morn")); }
     public String getIconName(){ return this.iconName; }
 
+    public void setUmidity(Long date){ this.date = date; }
     public void setUmidity(String umidity){ this.umidity = umidity; }
     public void setCity(String city){ this.city = city; }
     public void setDayNumber(String dayNumber){ this.dayNumber = dayNumber; }
@@ -87,7 +91,7 @@ public class Forecast {
         return this.getCity() + ", " + this.getTempMax() + ", " + this.getMain();
     }
 
-    public static Forecast fromJSON(String json) throws JSONException {
+    public static Forecast fromJSON(String json, Long timestamp) throws JSONException {
         JSONObject reader = new JSONObject(json);
         HashMap<String, String> temp = new HashMap<String, String>();
         String max = reader.getString("max");
@@ -109,7 +113,7 @@ public class Forecast {
         String city = reader.getString("city");
         String umidity = reader.getString("umidity");
         String iconName = reader.getString("iconName");
-        return new Forecast(dayNumber, dayString, main, temp, iconName, city, umidity);
+        return new Forecast(dayNumber, dayString, main, temp, iconName, city, umidity, timestamp);
     }
 
     public String formatTemp(String temp){
