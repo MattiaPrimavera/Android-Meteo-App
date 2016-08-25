@@ -18,6 +18,25 @@ public class ForecastAdapter extends CursorAdapter {
     private static final int VIEW_TYPE_TODAY = 0;
     private static final int VIEW_TYPE_FUTURE_DAY = 1;
 
+    /**
+     * Cache of the children views for a forecast list item.
+     */
+    public static class ViewHolder {
+        public final ImageView iconView;
+        public final TextView dayStringView;
+        public final TextView mainView;
+        public final TextView maxTempView;
+        public final TextView minTempView;
+
+        public ViewHolder(View view) {
+            iconView = (ImageView) view.findViewById(R.id.weather_icon);
+            dayStringView = (TextView) view.findViewById(R.id.list_item_forecast_day_string);
+            mainView = (TextView) view.findViewById(R.id.list_item_forecast_main);
+            maxTempView = (TextView) view.findViewById(R.id.list_item_forecast_day_max);
+            minTempView = (TextView) view.findViewById(R.id.list_item_forecast_day_min);
+        }
+    }
+
     public ForecastAdapter(Context context, Cursor c, int flags) {
         super(context, c, flags);
     }
@@ -57,7 +76,13 @@ public class ForecastAdapter extends CursorAdapter {
                 break;
             }
         }
-        return LayoutInflater.from(context).inflate(layoutId, parent, false);
+
+        View view = LayoutInflater.from(context).inflate(layoutId, parent, false);
+
+        ViewHolder viewHolder = new ViewHolder(view);
+        view.setTag(viewHolder);
+
+        return view;
     }
 
     /*
@@ -66,19 +91,15 @@ public class ForecastAdapter extends CursorAdapter {
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
         Forecast forecast = convertCursorRowToForecast(cursor);
+        ViewHolder viewHolder = (ViewHolder) view.getTag();
 
-        TextView dayString = (TextView) view.findViewById(R.id.list_item_forecast_day_string);
-        TextView main = (TextView) view.findViewById(R.id.list_item_forecast_main);
-        TextView max = (TextView) view.findViewById(R.id.list_item_forecast_day_max);
-        TextView min = (TextView) view.findViewById(R.id.list_item_forecast_day_min);
-
-        new DownloadIconTask((ImageView) view.findViewById(R.id.weather_icon)).execute("http://openweathermap.org/img/w/" + forecast.getIconName() + ".png");
+        new DownloadIconTask((ImageView) viewHolder.iconView).execute("http://openweathermap.org/img/w/" + forecast.getIconName() + ".png");
         int dayNumberInt = forecast.getDayNumber();
         String formattedDayString = Utility.getFriendlyDayString(context, dayNumberInt);
-        main.setText(forecast.getMain());
-        max.setText(forecast.getTempMax());
-        min.setText(forecast.getTempMin());
-        dayString.setText(formattedDayString);
+        viewHolder.mainView.setText(forecast.getMain());
+        viewHolder.maxTempView.setText(forecast.getTempMax());
+        viewHolder.minTempView.setText(forecast.getTempMin());
+        viewHolder.dayStringView.setText(formattedDayString);
     }
 
     @Override
