@@ -40,6 +40,7 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
             WeatherContract.WeatherEntry.COL_WEATHER_ID,
             WeatherContract.WeatherEntry.COL_ICON,
             WeatherContract.WeatherEntry.COL_HUMIDITY,
+            WeatherContract.WeatherEntry.COL_DAY,
     };
 
     // These indices are tied to FORECAST_COLUMNS.  If FORECAST_COLUMNS changes, these
@@ -53,6 +54,7 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
     static final int COL_WEATHER_CONDITION_ID = 6;
     static final int COL_WEATHER_ICON = 7;
     static final int COL_WEATHER_HUMIDITY = 8;
+    static final int COL_WEATHER_DAY = 9;
 
     public ForecastFragment() {
     }

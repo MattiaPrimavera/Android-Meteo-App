@@ -73,18 +73,18 @@ public class Utility {
 
         // If the date we're building the String for is today's date, the format
         // is "Today, June 24"
-        if (julianDay == currentJulianDay) {
+        if (number == 0) {
             String today = context.getString(R.string.today);
             int formatId = R.string.format_full_friendly_date;
             return String.format(context.getString(formatId, today, getFormattedMonthDay(context)));
-        } else if ( julianDay < currentJulianDay + 7 ) {
+        } else {
             // If the input date is less than a week in the future, just return the day name.
             return getDayName(context, number);
-        } else {
+        }/* else {
             // Otherwise, use the form "Mon Jun 3"
             SimpleDateFormat shortenedDateFormat = new SimpleDateFormat("EEE MMM dd");
             return shortenedDateFormat.format(dateInMillis);
-        }
+        }*/
     }
 
     /**
@@ -106,7 +106,7 @@ public class Utility {
         } else {
             // Otherwise, the format is just the day of the week (e.g "Wednesday".
             SimpleDateFormat dayFormat = new SimpleDateFormat("EEEE");
-            return dayFormat.format(System.currentTimeMillis());
+            return dayFormat.format(System.currentTimeMillis() + number * 86400010);
         }
     }
 
