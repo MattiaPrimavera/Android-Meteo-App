@@ -26,7 +26,7 @@ public class ForecastAdapter extends CursorAdapter {
         int main = ForecastFragment.COL_WEATHER_DESC;
         int humidity = ForecastFragment.COL_WEATHER_HUMIDITY;
         int icon = ForecastFragment.COL_WEATHER_ICON;
-        String dayNumber = WeatherDataParser.getCurrentDayNumber(0);
+        int dayNumber = 0;
 
         Forecast result = new Forecast(dayNumber, cursor.getString(date), cursor.getString(main), null, cursor.getString(icon), "", cursor.getString(humidity), System.currentTimeMillis());
         result.setTempMin(cursor.getString(min_temp));
@@ -57,9 +57,12 @@ public class ForecastAdapter extends CursorAdapter {
         TextView day = (TextView) view.findViewById(R.id.list_item_forecast_day);
 
         new DownloadIconTask((ImageView) view.findViewById(R.id.weather_icon)).execute("http://openweathermap.org/img/w/" + forecast.getIconName() + ".png");
+
+        String formattedDayString = Utility.getFriendlyDayString(context, cursor.getPosition());
+
         main.setText(forecast.getMain());
         day.setText(forecast.getTempDay());
-        dayNumber.setText(forecast.getDayNumber());
-        dayString.setText(forecast.getDayString());
+        dayNumber.setText(forecast.getDayString());
+        dayString.setText(formattedDayString);
     }
 }

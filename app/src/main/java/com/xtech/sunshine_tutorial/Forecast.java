@@ -6,11 +6,12 @@ import org.json.JSONObject;
 import java.util.HashMap;
 
 public class Forecast {
-    private String dayNumber, dayString, main, iconName, city, umidity;
+    private String dayString, main, iconName, city, umidity;
     private Long date;
+    private int dayNumber;
     private HashMap<String, String> temp;
 
-    public Forecast(String dayNumber, String dayString, String main, HashMap<String, String> temp, String iconName, String city, String umidity, Long date){
+    public Forecast(int dayNumber, String dayString, String main, HashMap<String, String> temp, String iconName, String city, String umidity, Long date){
         this.umidity = umidity;
         this.date = date;
         this.dayNumber = dayNumber;
@@ -35,7 +36,7 @@ public class Forecast {
     public String getUmidity(){ return this.umidity; }
     public String getCity(){ return this.city; }
     public String getDayString(){ return this.dayString; }
-    public String getDayNumber(){ return this.dayNumber; }
+    public int getDayNumber(){ return this.dayNumber; }
     public String getMain(){ return this.main; }
     public String getTempMax(){
         String max = this.temp.get("max");
@@ -52,7 +53,7 @@ public class Forecast {
     public void setUmidity(Long date){ this.date = date; }
     public void setUmidity(String umidity){ this.umidity = umidity; }
     public void setCity(String city){ this.city = city; }
-    public void setDayNumber(String dayNumber){ this.dayNumber = dayNumber; }
+    public void setDayNumber(int dayNumber){ this.dayNumber = dayNumber; }
     public void setDayString(String dayString){ this.dayString = dayString; }
     public void setMain(String main){ this.main = main; }
     public void setIconName(String iconName){ this.iconName = iconName; }
@@ -107,7 +108,7 @@ public class Forecast {
         temp.put("night", night);
         temp.put("day", day);
 
-        String dayNumber = reader.getString("dayNumber");
+        int dayNumber = reader.getInt("dayNumber");
         String dayString = reader.getString("dayString");
         String main = reader.getString("main");
         String city = reader.getString("city");

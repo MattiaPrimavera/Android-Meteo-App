@@ -1,56 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:padding="16dp"
     android:id="@+id/list_item_forecast_main_layout">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        android:id="@+id/weather_icon" />
     <LinearLayout
-        android:layout_width="400px"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:id="@+id/list_item_forecast_layout_day"
-        android:orientation="vertical">
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:id="@+id/list_item_forecast_layout_day">
         <TextView xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="30sp"
             android:id="@+id/list_item_forecast_day_string" />
         <TextView xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:id="@+id/list_item_forecast_day_number" />
+            android:layout_height="wrap_content"
+            android:id="@+id/list_item_forecast_main" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:orientation="horizontal"
-        android:id="@+id/list_item_forecast_layout_icon"
-        android:gravity="center" >
-
-        <ImageView
-            android:layout_width="200px"
-            android:layout_height="match_parent"
-            android:id="@+id/weather_icon"
-            android:layout_gravity="center"
-            android:adjustViewBounds="true" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:id="@+id/list_item_forecast_layout_temp"
-        android:gravity="center" >
+        android:id="@+id/list_item_forecast_layout_temp">
 
         <TextView xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:textSize="40sp"
+            android:text="81"
             android:id="@+id/list_item_forecast_day" />
         <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:text="68"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:gravity="center"
-            android:id="@+id/list_item_forecast_main" />
+            android:id="@+id/list_item_forecast_day_number" />
     </LinearLayout>
 </LinearLayout>

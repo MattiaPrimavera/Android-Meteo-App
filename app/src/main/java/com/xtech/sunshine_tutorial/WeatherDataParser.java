@@ -39,10 +39,9 @@ public class WeatherDataParser {
             String main = weather.getJSONObject(0).getString("main");
             String iconName = weather.getJSONObject(0).getString("icon");
 
-            String dayNumber = WeatherDataParser.getCurrentDayNumber(i);
             String dayString = WeatherDataParser.getCurrentDayString(i);
 
-            forecastList.add(new Forecast(dayNumber, dayString, main, temperature, iconName, cityName, humidity, System.currentTimeMillis()));
+            forecastList.add(new Forecast(i, dayString, main, temperature, iconName, cityName, humidity, System.currentTimeMillis()));
         }
 
         return forecastList;
