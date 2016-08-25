@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,6 +44,15 @@ public class DetailActivityFragment extends Fragment implements LoaderManager.Lo
     private static final int COL_WEATHER_EVE_TEMP = 8;
     private static final int COL_WEATHER_NIGHT_TEMP = 9;
 
+    private ImageView detailIconView;
+    private TextView detailDayStringView;
+    private TextView detailCityView;
+    private TextView detailMainView;
+    private TextView detailMaxTempView;
+    private TextView detailMinTempView;
+    private TextView detailMornTempView;
+    private TextView detailEveTempView;
+    private TextView detailNightTempView;
     public DetailActivityFragment() {
         setHasOptionsMenu(true);
     }
@@ -52,7 +60,6 @@ public class DetailActivityFragment extends Fragment implements LoaderManager.Lo
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
         Intent intent = getActivity().getIntent();
 
         String locationSetting = Utility.getPreferredLocation(getActivity());
@@ -60,15 +67,21 @@ public class DetailActivityFragment extends Fragment implements LoaderManager.Lo
         Uri weatherForLocationUri = WeatherContract.WeatherEntry.buildWeatherLocation(
                 locationSetting);
 
+        View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
+
         Cursor cur = getActivity().getContentResolver().query(weatherForLocationUri,
                 null, null, null, null);
 
         this.adapter = new ForecastAdapter(getActivity(), cur, 0);
 
-        if(intent != null) {
-            String jsonForecast = intent.getDataString();
-            ((TextView) rootView.findViewById(R.id.detail_day)).setText(jsonForecast);
-        }
+        this.detailIconView = (ImageView) rootView.findViewById(R.id.detail_icon);
+        this.detailDayStringView = (TextView) rootView.findViewById(R.id.detail_day);
+        this.detailMainView = (TextView) rootView.findViewById(R.id.detail_main);
+        this.detailMaxTempView = (TextView) rootView.findViewById(R.id.detail_max);
+        this.detailMinTempView = (TextView) rootView.findViewById(R.id.detail_min);
+        this.detailMornTempView = (TextView) rootView.findViewById(R.id.detail_morn);
+        this.detailEveTempView = (TextView) rootView.findViewById(R.id.detail_eve);
+        this.detailNightTempView = (TextView) rootView.findViewById(R.id.detail_night);
         return rootView;
     }
 
@@ -80,7 +93,6 @@ public class DetailActivityFragment extends Fragment implements LoaderManager.Lo
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        Log.v("TEST:", "In onCreateLoader");
         Intent intent = getActivity().getIntent();
         if (intent == null) {
             return null;
@@ -100,18 +112,20 @@ public class DetailActivityFragment extends Fragment implements LoaderManager.Lo
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        data.moveToFirst();
-        new DownloadIconTask((ImageView) getView().findViewById(R.id.detail_icon)).execute("http://openweathermap.org/img/w/" + data.getString(COL_WEATHER_ICON) + ".png");
-        ((TextView) getView().findViewById(R.id.detail_day)).setText(data.getString(COL_WEATHER_DAY));
-        ((TextView) getView().findViewById(R.id.detail_city)).setText("Paris");
-        ((TextView) getView().findViewById(R.id.detail_main)).setText(data.getString(COL_WEATHER_DESC));
-        ((TextView) getView().findViewById(R.id.detail_max)).setText(data.getString(COL_WEATHER_MAX_TEMP));
-        ((TextView) getView().findViewById(R.id.detail_min)).setText(data.getString(COL_WEATHER_MIN_TEMP));
-        ((TextView) getView().findViewById(R.id.detail_morn)).setText(data.getString(COL_WEATHER_MORN_TEMP));
-        ((TextView) getView().findViewById(R.id.detail_eve)).setText(data.getString(COL_WEATHER_EVE_TEMP));
-        ((TextView) getView().findViewById(R.id.detail_night)).setText(data.getString(COL_WEATHER_NIGHT_TEMP));
+        if (data != null && data.moveToFirst()){
+            new DownloadIconTask(detailIconView).execute("http://openweathermap.org/img/w/" + data.getString(COL_WEATHER_ICON) + ".png");
+//            detailCityView.setText("Paris");
+            detailMainView.setText(data.getString(COL_WEATHER_DESC));
+            detailMaxTempView.setText(data.getString(COL_WEATHER_MAX_TEMP));
+            detailMinTempView.setText(data.getString(COL_WEATHER_MIN_TEMP));
+            detailMornTempView.setText(data.getString(COL_WEATHER_MORN_TEMP));
+            detailEveTempView.setText(data.getString(COL_WEATHER_EVE_TEMP));
+            detailNightTempView.setText(data.getString(COL_WEATHER_NIGHT_TEMP));
+            detailDayStringView.setText(data.getString(COL_WEATHER_DAY));
+        }
     }
 
     @Override
-    public void onLoaderReset(Loader<Cursor> loader) {}
+    public void onLoaderReset(Loader<Cursor> loader) {
+    }
 }
