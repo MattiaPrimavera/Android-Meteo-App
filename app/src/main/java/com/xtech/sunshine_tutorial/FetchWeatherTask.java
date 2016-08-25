@@ -17,7 +17,6 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class FetchWeatherTask extends AsyncTask<String, Void, ArrayList<Forecast>> {
-    private CustomWeatherAdapter adapter;
     private final Context mContext;
     private final String LOG_TAG = FetchWeatherTask.class.getSimpleName();
 

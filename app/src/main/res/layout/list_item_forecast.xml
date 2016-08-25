@@ -38,12 +38,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="81"
-            android:id="@+id/list_item_forecast_day" />
+            android:id="@+id/list_item_forecast_day_max" />
         <TextView xmlns:android="http://schemas.android.com/apk/res/android"
             android:text="68"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:id="@+id/list_item_forecast_day_number" />
+            android:id="@+id/list_item_forecast_day_min" />
     </LinearLayout>
 </LinearLayout>

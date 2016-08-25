@@ -46,8 +46,8 @@
     <string name="detail_night_label">Night</string>
     <string name="detail_morn_label">Morn</string>
     <string name="detail_eve_label">Eve</string>
-    <string name="list_item_forecast_min_label_first">Min</string>
-    <string name="list_item_forecast_max_label_first">Max</string>
+    <string name="list_item_forecast_min_label">Min</string>
+    <string name="list_item_forecast_max_label">Max</string>
 
 
     <!-- Date label when displaying today's weather forecast [CHAR LIMIT=20] -->
