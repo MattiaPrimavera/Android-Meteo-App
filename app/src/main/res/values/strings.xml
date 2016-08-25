@@ -51,10 +51,10 @@
 
 
     <!-- Date label when displaying today's weather forecast [CHAR LIMIT=20] -->
-    <string name="today">Today</string>
+    <string name="today">Auj</string>
 
     <!-- Date label when displaying tomorrow's weather forecast [CHAR LIMIT=20] -->
-    <string name="tomorrow">Tomorrow</string>
+    <string name="tomorrow">Demain</string>
 
     <!-- Date format for displaying day of week and date (i.e. Mon Jun 1) [CHAR LIMIT=20] -->
     <string name="format_full_friendly_date"><xliff:g id="day">%1$s</xliff:g>, <xliff:g id="date">%2$s</xliff:g></string>
