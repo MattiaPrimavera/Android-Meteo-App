@@ -1,4 +1,4 @@
-# Android Meteo App
+# Sunshine Meteo App
 Simple Meteo App by following Udacity tutorials on Android
 
 In order to get up and running with Android Development, I chose to follow some [Android Video Lessons from
