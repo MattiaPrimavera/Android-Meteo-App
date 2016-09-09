@@ -59,6 +59,8 @@ Aims:
 
 ## Adapters
 > An Adapter object acts as a bridge between an `AdapterView` and the underlying data for that view. The Adapter provides access to the data items. The Adapter is also responsible for making a `View` for each item in the data set.
+- `ArrayAdapter`: it's an adapter backed by an array of objects
+- `SimpleCursorAdapter`: the cursor is a set of data you usually get when you do a database query. The result of your query is contained in the cursor. This adapter binds the Cursor data to an Adapter View. You define a layout that controls how each row of data is displayed
 
 ## ListView
 > `ListView` is a view group that displays a list of scrollable items. The list items are automatically inserted to the list using an `Adapter` that pulls content from a source such as an array or database query and converts each item result into a `view` that's placed into the list.
