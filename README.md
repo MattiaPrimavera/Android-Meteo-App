@@ -67,3 +67,23 @@ Aims:
 
 > Using a `CursorLoader` is the standard way to query a `Cursor` as an `asynchronous task` in order to avoid blocking your app's main thread with the query. When the `CursorLoader` receives the `Cursor` result, the `LoaderCallbacks` receives a callback to `onLoadFinished()`, which is where you update your `Adapter` with the new Cursor and the list view then displays the results.
 
+## Loaders
+> Introduced in Android 3.0, loaders make it easy to asynchronously load data in an activity or fragment. Loaders have these characteristics:
+> - They are available to every Activity and Fragment.
+> - They provide asynchronous loading of data.
+> - They monitor the source of their data and deliver new results when the content changes.
+> - They automatically reconnect to the last loader's cursor when being recreated after a configuration change. Thus,
+> - they don't need to re-query their data.
+
+Using Loaders in an Application
+
+> An application that uses loaders typically includes the following:
+
+> - An Activity or Fragment.
+> - An instance of the LoaderManager.
+A CursorLoader to load data backed by a ContentProvider. Alternatively, you can implement your own subclass of Loader or AsyncTaskLoader to load data from some other source.
+> - An implementation for LoaderManager.LoaderCallbacks. This is where you create new loaders and manage your references to existing loaders.
+> - A way of displaying the loader's data, such as a SimpleCursorAdapter.
+> - A data source, such as a ContentProvider, when using a CursorLoader.
+
+
