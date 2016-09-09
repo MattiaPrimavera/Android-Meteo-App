@@ -56,3 +56,12 @@ Aims:
 - By dividing the layout of an activity into fragments, you become able to modify the activity's appearance at runtime and preserve those changes in a back stack that's managed by the activity.
 
 > Design each fragment as a modular and reusable activity component
+
+## Adapters
+> An Adapter object acts as a bridge between an `AdapterView` and the underlying data for that view. The Adapter provides access to the data items. The Adapter is also responsible for making a `View` for each item in the data set.
+
+## ListView
+> `ListView` is a view group that displays a list of scrollable items. The list items are automatically inserted to the list using an `Adapter` that pulls content from a source such as an array or database query and converts each item result into a `view` that's placed into the list.
+
+> Using a `CursorLoader` is the standard way to query a `Cursor` as an `asynchronous task` in order to avoid blocking your app's main thread with the query. When the `CursorLoader` receives the `Cursor` result, the `LoaderCallbacks` receives a callback to `onLoadFinished()`, which is where you update your `Adapter` with the new Cursor and the list view then displays the results.
+
