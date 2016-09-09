@@ -24,3 +24,24 @@ Soon to come ...
 
 # Subjects covered
 Check [Here](https://www.udacity.com/course/developing-android-apps--ud853)
+
+# Important Definitions
+## Activity
+> An activity is a single, focused thing that the user can do. Almost all activities interact with the user, so the Activity class takes care of creating a window for you in which you can place your UI with setContentView(View). While activities are often presented to the user as full-screen windows, they can also be used in other ways: as floating windows (via a theme with windowIsFloating set) or embedded inside of another activity (using ActivityGroup). There are two methods almost all subclasses of Activity will implement:
+
+> - `onCreate(Bundle)` is where you initialize your activity. Most importantly, here you will usually call `setContentView(int)` with a layout resource defining your UI, and using `findViewById(int)` to retrieve the widgets in that UI that you need to interact with programmatically.
+> - `onPause()` is where you deal with the user leaving your activity. Most importantly, any changes made by the user should at this point be committed (usually to the ContentProvider holding the data). 
+
+> The entire lifecycle of an activity is defined by the following Activity methods. All of these are hooks that you can override to do appropriate work when the activity changes state. All activities will implement onCreate(Bundle) to do their initial setup; many will also implement onPause() to commit changes to data and otherwise prepare to stop interacting with the user. You should always call up to your superclass when implementing these methods.
+
+```java
+public class Activity extends ApplicationContext {
+     protected void onCreate(Bundle savedInstanceState);
+     protected void onStart();
+     protected void onRestart();
+     protected void onResume();
+     protected void onPause();
+     protected void onStop();
+     protected void onDestroy();
+ }
+ ```
