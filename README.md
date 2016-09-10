@@ -62,6 +62,8 @@ Aims:
 - `ArrayAdapter`: it's an adapter backed by an array of objects
 - `SimpleCursorAdapter`: the cursor is a set of data you usually get when you do a database query. The result of your query is contained in the cursor. This adapter binds the Cursor data to an Adapter View. You define a layout that controls how each row of data is displayed
 
+It provides you with an efficient pagination system for displayng list results to the screen, by reusing those views which are not visible anymore when scrolling, otherwise the garbage collector would be charged by all those unused references. 
+
 ## ListView
 > `ListView` is a view group that displays a list of scrollable items. The list items are automatically inserted to the list using an `Adapter` that pulls content from a source such as an array or database query and converts each item result into a `view` that's placed into the list.
 
